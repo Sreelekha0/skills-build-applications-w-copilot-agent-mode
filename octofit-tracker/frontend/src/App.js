@@ -2,41 +2,74 @@
 import octofitLogo from '../public/octofitapp-small.png';
 
 function App() {
-  return (
-    <div className="App">
-      {/* Bootstrap Navigation with custom styles and logo */}
-      <nav className="navbar navbar-expand-lg navbar-custom mb-4">
-        <div className="container-fluid">
-          <a className="navbar-brand navbar-brand-custom d-flex align-items-center" href="#">
-            <img src={octofitLogo} alt="Octofit Logo" style={{height: '40px', marginRight: '12px'}} />
-            Octofit Tracker
-          </a>
-          <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span className="navbar-toggler-icon"></span>
-          </button>
-          <div className="collapse navbar-collapse" id="navbarNav">
-            <ul className="navbar-nav ms-auto">
-              <li className="nav-item">
-                <a className="nav-link nav-link-custom active" aria-current="page" href="#">Home</a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link nav-link-custom" href="#">Profile</a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link nav-link-custom" href="#">Teams</a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link nav-link-custom" href="#">Leaderboard</a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link nav-link-custom" href="#">Workouts</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </nav>
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route, NavLink } from 'react-router-dom';
+import Activities from './components/Activities';
+import Leaderboard from './components/Leaderboard';
+import Teams from './components/Teams';
+import Users from './components/Users';
+import Workouts from './components/Workouts';
 
-      {/* Bootstrap Card with custom heading */}
+function App() {
+  return (
+    <Router>
+      <div className="App">
+        <nav className="navbar navbar-expand-lg navbar-custom mb-4">
+          <div className="container-fluid">
+            <NavLink className="navbar-brand navbar-brand-custom d-flex align-items-center" to="/">
+              <span className="fw-bold">Octofit Tracker</span>
+            </NavLink>
+            <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+              <span className="navbar-toggler-icon"></span>
+            </button>
+            <div className="collapse navbar-collapse" id="navbarNav">
+              <ul className="navbar-nav ms-auto">
+                <li className="nav-item">
+                  <NavLink className="nav-link nav-link-custom" to="/activities">Activities</NavLink>
+                </li>
+                <li className="nav-item">
+                  <NavLink className="nav-link nav-link-custom" to="/teams">Teams</NavLink>
+                </li>
+                <li className="nav-item">
+                  <NavLink className="nav-link nav-link-custom" to="/leaderboard">Leaderboard</NavLink>
+                </li>
+                <li className="nav-item">
+                  <NavLink className="nav-link nav-link-custom" to="/users">Users</NavLink>
+                </li>
+                <li className="nav-item">
+                  <NavLink className="nav-link nav-link-custom" to="/workouts">Workouts</NavLink>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+        <div className="container mt-4">
+          <Routes>
+            <Route path="/activities" element={<Activities />} />
+            <Route path="/teams" element={<Teams />} />
+            <Route path="/leaderboard" element={<Leaderboard />} />
+            <Route path="/users" element={<Users />} />
+            <Route path="/workouts" element={<Workouts />} />
+            <Route path="/" element={
+              <div className="card">
+                <div className="card-header bg-primary text-white">
+                  <h2 className="mb-0">Welcome to Octofit Tracker</h2>
+                </div>
+                <div className="card-body">
+                  <p className="lead">Track your fitness activities, join teams, compete on the leaderboard, and get personalized workout suggestions!</p>
+                  <NavLink to="/activities" className="btn btn-primary m-2">View Activities</NavLink>
+                  <NavLink to="/teams" className="btn btn-info m-2">View Teams</NavLink>
+                  <NavLink to="/leaderboard" className="btn btn-success m-2">View Leaderboard</NavLink>
+                  <NavLink to="/users" className="btn btn-warning m-2">View Users</NavLink>
+                  <NavLink to="/workouts" className="btn btn-danger m-2">View Workouts</NavLink>
+                </div>
+              </div>
+            } />
+          </Routes>
+        </div>
+      </div>
+    </Router>
+  );
       <div className="container">
         <div className="row justify-content-center">
           <div className="col-md-8">
